@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
@@ -7,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import NasaTriviaScreen from './screens/NasaTriviaScreen';
 
 const MENU_ITEMS = [
   {
@@ -33,13 +35,25 @@ const MENU_ITEMS = [
     title: 'Earth Imagery',
     subtitle: 'Landsat · Imágenes de la Tierra',
   },
+  {
+    id: 'trivia',
+    icon: '🪐',
+    title: 'Trivia NASA',
+    subtitle: 'Quiz · Asteroides reales',
+  },
 ];
 
 export default function App() {
+  const [screen, setScreen] = useState(null);
+
   const handlePress = (id) => {
     console.log('Navegando a:', id);
-    // Aquí irá la navegación cuando agregues React Navigation
+    if (id === 'trivia') setScreen('trivia');
   };
+
+  if (screen === 'trivia') {
+    return <NasaTriviaScreen onBack={() => setScreen(null)} />;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
